@@ -16,7 +16,7 @@
     GM_addStyle(GM_getResourceText("customCSS").replace(/url\(/g,"url(https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/"));
     let convert=function(str){
         let flag=false;
-        let strs=str.replace(/\\\n/g,"\\\\").split("$");
+        let strs=str.replace(/\\\n/g,"\\\\").replace(/\\left{/g,"\\left\\{").split("$");
         let out="";
         for(let i=0;i<strs.length;i++){
             if(flag){
