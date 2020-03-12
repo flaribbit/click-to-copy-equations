@@ -13,23 +13,18 @@
 
 (function() {
     'use strict';
-    let css=GM_getResourceText("customCSS").replace(/url\(/g,"url(https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/");
-    console.log(css);
-    GM_addStyle(css);
+    GM_addStyle(GM_getResourceText("customCSS").replace(/url\(/g,"url(https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/"));
     let convert=function(str){
         let flag=false;
-        let strs=str.split("$");
+        let strs=str.replace(/\\\n/g,"\\\\").split("$");
         let out="";
         for(let i=0;i<strs.length;i++){
             if(flag){
-                //如果是公式
                 if(!strs[i]){
-                    //如果是空白
-                    out+="<大型公式>";
-                    //console.log(strs[i+1]);
+                    console.log(strs[i+1]);
+                    out+="</p>"+katex.renderToString(strs[i+1], {throwOnError: false})+"<p>";
                     i+=2;
                 }else{
-                    console.log(strs[i]);
                     out+=katex.renderToString(strs[i], {throwOnError: false});
                 }
             }else{
@@ -41,7 +36,6 @@
     }
     let elements=document.querySelectorAll("p");
     for(let i=0;i<elements.length;i++){
-        elements[i].innerHTML=convert(elements[i].innerHTML);
-        // console.log(elements[i].innerHTML);
+        elements[i].innerHTML=convert(elements[i].textContent);
     }
 })();
