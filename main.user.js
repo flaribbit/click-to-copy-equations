@@ -17,7 +17,7 @@
     window.tempbox=document.createElement("input");
     document.body.appendChild(window.tempbox);
     let host=document.location.host;
-    if(host.search('wikipedia')>0){
+    if(host.search('wikipedia')>=0){
         let copyTex=function(){
             window.tempbox.value='$'+this.alt+'$';
             window.tempbox.select();
@@ -28,18 +28,16 @@
             eqs[i].onclick=copyTex;
             eqs[i].title='点击即可复制公式';
         }
-    }else if(host.search('zhihu')>0){
+    }else if(host.search('zhihu')>=0){
         let copyTex=function(){
             window.tempbox.value='$'+this.getAttribute("data-formula")+'$';
             window.tempbox.select();
             document.execCommand('copy');
         }
-        let imgs=document.getElementsByTagName("img");
-        for(let i=0;i<imgs.length;i++){
-            if(imgs[i].alt){
-                imgs[i].onclick=copyTex;
-                imgs[i].title='点击即可复制公式';
-            }
+        let eqs=document.querySelectorAll("img[alt]");
+        for(let i=0;i<eqs.length;i++){
+            eqs[i].onclick=copyTex;
+            eqs[i].title='点击即可复制公式';
         }
     }
 })();
