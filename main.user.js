@@ -1,13 +1,15 @@
 // ==UserScript==
 // @name         一键复制公式
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  Click to copy equation in Wikipedia
 // @author       flaribbit
 // @match        http://*.wikipedia.org/*
 // @match        https://*.wikipedia.org/*
+// @match        http://www.wikiwand.com/*
 // @match        https://www.zhihu.com/question/*
 // @match        https://zhuanlan.zhihu.com/p/*
+// @match        https://blog.csdn.net/*/article/*
 // @grant        none
 // ==/UserScript==
 
@@ -22,7 +24,7 @@
     let clearAnimation=function(){
         this.style.animation="";
     }
-    if(host.search('wikipedia')>=0){
+    if(host.search('wikipedia')>=0||host.search('wikiwand')>=0){
         let copyTex=function(){
             window.tempbox.value='$'+this.alt+'$';
             window.tempbox.select();
@@ -57,5 +59,19 @@
         }else{
             ref();
         }
+    }else if(host.search('blog.csdn')>=0){
+        let copyTex=function(){
+            window.tempbox.value='$'+this.querySelector("annotation").textContent.trim()+'$';
+            window.tempbox.select();
+            document.execCommand('copy');
+            this.style.animation="aniclick .4s";
+        }
+        let eqs=document.querySelectorAll(".katex");
+        for(let i=0;i<eqs.length;i++){
+            eqs[i].onclick=copyTex;
+            eqs[i].addEventListener("animationend",clearAnimation);
+            eqs[i].title='点击即可复制公式';
+        }
+        console.log(eqs);
     }
 })();
