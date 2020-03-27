@@ -6,12 +6,14 @@
 
 `main.user.js` 目前支持下列网站
 
-| 网站      | 域名                                             | 描述
+| 网站      | URL                                              | 附加说明
 | --------- | ------------------------------------------------ | ---
 | 知乎      | zhihu.com/question/\*<br>zhuanlan.zhihu.com/p/\* |
 | wikipedia | wikipedia.org/\*                                 |
 | wikiwand  | wikiwand.com/\*                                  |
-| CSDN      | blog.csdn.net/\*/article/\*                      | 只支持markdown编写的<br>使用katex渲染的公式
+| CSDN      | blog.csdn.net/\*/article/\*                      | \*只支持markdown编写的<br>使用katex渲染的公式
+
+\*Mathjax渲染的公式自带查看LaTeX代码的功能
 
 如果你有其他常用的网站欢迎反馈
 
