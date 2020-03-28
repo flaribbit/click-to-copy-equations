@@ -4,6 +4,8 @@
 
 ## 一键复制公式
 
+[GreasyFork发布页](https://greasyfork.org/zh-CN/scripts/397740)
+
 `main.user.js` 目前支持下列网站
 
 | 网站      | URL                                              | 附加说明
@@ -18,6 +20,8 @@
 如果你有其他常用的网站欢迎反馈
 
 ## github公式渲染
+
+[GreasyFork发布页](https://greasyfork.org/zh-CN/scripts/397797)
 
 `github.user.js` 渲染github在线预览Markdown中的公式
 
