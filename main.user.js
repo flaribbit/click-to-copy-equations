@@ -40,20 +40,22 @@
             navigator.clipboard.writeText('$' + this.getAttribute("data-formula") + '$');
             this.style.animation = "aniclick .4s";
         }
-        let ref = function () {
+        let check_equations = function () {
             if (document.visibilityState == "visible") {
-                let eqs = document.querySelectorAll("img[alt]");
+                let eqs = document.querySelectorAll(".ztext-math");
                 for (let i = 0; i < eqs.length; i++) {
-                    eqs[i].onclick = copyTex;
-                    eqs[i].addEventListener("animationend", clearAnimation);
-                    eqs[i].title = '点击即可复制公式';
+                    const inner_element = eqs[i].querySelector('.MathJax_SVG');
+                    if (!inner_element) continue;
+                    inner_element.onclick = copyTex;
+                    inner_element.addEventListener("animationend", clearAnimation);
+                    inner_element.title = '点击即可复制公式';
                 }
             }
         }
         if (document.location.href.search('question') >= 0) {
-            setInterval(ref, 1000);
+            setInterval(check_equations, 1000);
         } else {
-            ref();
+            check_equations();
         }
     } else if (host.search('blog.csdn') >= 0) {
         let copyTex = function () {
