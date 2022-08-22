@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         一键复制公式
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.5
 // @description  Click to copy equation in Wikipedia
 // @author       flaribbit
 // @match        http://*.wikipedia.org/*
@@ -15,39 +15,37 @@
 
 (function () {
     'use strict';
-    window.tempbox = document.createElement("input");
-    document.body.appendChild(window.tempbox);
-    let host = document.location.host;
-    let el = document.createElement("style");
-    el.innerText = "@keyframes aniclick{0%{background:#03A9F400}20%{background:#03A9F47F}100%{background:#03A9F400}}";
+    const host = document.location.host;
+    const el = document.createElement('style');
+    el.innerText = '@keyframes aniclick{0%{background:#03A9F400}20%{background:#03A9F47F}100%{background:#03A9F400}}';
     document.head.appendChild(el);
-    let clearAnimation = function () {
-        this.style.animation = "";
+    const clearAnimation = function () {
+        this.style.animation = '';
     }
     if (host.search('wikipedia') >= 0 || host.search('wikiwand') >= 0) {
-        let copyTex = function () {
+        const copyTex = function () {
             navigator.clipboard.writeText('$' + this.alt + '$');
-            this.style.animation = "aniclick .4s";
+            this.style.animation = 'aniclick .4s';
         }
-        let eqs = document.querySelectorAll(".mwe-math-fallback-image-inline, .mwe-math-fallback-image-display");
+        const eqs = document.querySelectorAll('.mwe-math-fallback-image-inline, .mwe-math-fallback-image-display');
         for (let i = 0; i < eqs.length; i++) {
             eqs[i].onclick = copyTex;
-            eqs[i].addEventListener("animationend", clearAnimation);
+            eqs[i].addEventListener('animationend', clearAnimation);
             eqs[i].title = '点击即可复制公式';
         }
     } else if (host.search('zhihu') >= 0) {
-        let copyTex = function () {
-            navigator.clipboard.writeText('$' + this.getAttribute("data-formula") + '$');
-            this.style.animation = "aniclick .4s";
+        const copyTex = function () {
+            navigator.clipboard.writeText('$' + this.getAttribute('data-tex') + '$');
+            this.style.animation = 'aniclick .4s';
         }
-        let check_equations = function () {
-            if (document.visibilityState == "visible") {
-                let eqs = document.querySelectorAll(".ztext-math");
+        const check_equations = function () {
+            if (document.visibilityState == 'visible') {
+                const eqs = document.querySelectorAll('.ztext-math');
                 for (let i = 0; i < eqs.length; i++) {
                     const inner_element = eqs[i].querySelector('.MathJax_SVG');
                     if (!inner_element) continue;
                     inner_element.onclick = copyTex;
-                    inner_element.addEventListener("animationend", clearAnimation);
+                    inner_element.addEventListener('animationend', clearAnimation);
                     inner_element.title = '点击即可复制公式';
                 }
             }
@@ -58,16 +56,15 @@
             check_equations();
         }
     } else if (host.search('blog.csdn') >= 0) {
-        let copyTex = function () {
-            navigator.clipboard.writeText('$' + this.querySelector("annotation").textContent.trim() + '$');
-            this.style.animation = "aniclick .4s";
+        const copyTex = function () {
+            navigator.clipboard.writeText('$' + this.querySelector('annotation').textContent.trim() + '$');
+            this.style.animation = 'aniclick .4s';
         }
-        let eqs = document.querySelectorAll(".katex");
+        const eqs = document.querySelectorAll('.katex');
         for (let i = 0; i < eqs.length; i++) {
             eqs[i].onclick = copyTex;
-            eqs[i].addEventListener("animationend", clearAnimation);
+            eqs[i].addEventListener('animationend', clearAnimation);
             eqs[i].title = '点击即可复制公式';
         }
-        console.log(eqs);
     }
 })();
