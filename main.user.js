@@ -26,9 +26,7 @@
     }
     if (host.search('wikipedia') >= 0 || host.search('wikiwand') >= 0) {
         let copyTex = function () {
-            window.tempbox.value = '$' + this.alt + '$';
-            window.tempbox.select();
-            document.execCommand('copy');
+            navigator.clipboard.writeText('$' + this.alt + '$');
             this.style.animation = "aniclick .4s";
         }
         let eqs = document.getElementsByClassName("mwe-math-fallback-image-inline");
@@ -39,9 +37,7 @@
         }
     } else if (host.search('zhihu') >= 0) {
         let copyTex = function () {
-            window.tempbox.value = '$' + this.getAttribute("data-formula") + '$';
-            window.tempbox.select();
-            document.execCommand('copy');
+            navigator.clipboard.writeText('$' + this.getAttribute("data-formula") + '$');
             this.style.animation = "aniclick .4s";
         }
         let ref = function () {
@@ -61,9 +57,7 @@
         }
     } else if (host.search('blog.csdn') >= 0) {
         let copyTex = function () {
-            window.tempbox.value = '$' + this.querySelector("annotation").textContent.trim() + '$';
-            window.tempbox.select();
-            document.execCommand('copy');
+            navigator.clipboard.writeText('$' + this.querySelector("annotation").textContent.trim() + '$');
             this.style.animation = "aniclick .4s";
         }
         let eqs = document.querySelectorAll(".katex");
