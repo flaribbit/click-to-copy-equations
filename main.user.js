@@ -29,7 +29,7 @@
             navigator.clipboard.writeText('$' + this.alt + '$');
             this.style.animation = "aniclick .4s";
         }
-        let eqs = document.getElementsByClassName("mwe-math-fallback-image-inline");
+        let eqs = document.querySelectorAll(".mwe-math-fallback-image-inline, .mwe-math-fallback-image-display");
         for (let i = 0; i < eqs.length; i++) {
             eqs[i].onclick = copyTex;
             eqs[i].addEventListener("animationend", clearAnimation);
