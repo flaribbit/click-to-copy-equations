@@ -42,11 +42,12 @@
             if (document.visibilityState == 'visible') {
                 const eqs = document.querySelectorAll('.ztext-math');
                 for (let i = 0; i < eqs.length; i++) {
-                    const inner_element = eqs[i].querySelector('.MathJax_SVG');
-                    if (!inner_element) continue;
-                    inner_element.onclick = copyTex;
-                    inner_element.addEventListener('animationend', clearAnimation);
-                    inner_element.title = '点击即可复制公式';
+                    if (!eqs[i].hasAttribute('data-tex')) continue;
+                    eqs[i].onclick = copyTex;
+                    eqs[i].addEventListener('animationend', clearAnimation);
+                    eqs[i].title = '点击即可复制公式';
+
+
                 }
             }
         }
