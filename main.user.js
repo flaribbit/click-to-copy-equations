@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         一键复制公式
 // @namespace    http://tampermonkey.net/
-// @version      0.5
-// @description  Click to copy equation in Wikipedia
+// @version      0.6
+// @description  Click to copy equation in Wikipedia and Zhihu
 // @author       flaribbit
 // @match        http://*.wikipedia.org/*
 // @match        https://*.wikipedia.org/*
@@ -23,7 +23,7 @@
     const clearAnimation = function () {
         this.style.animation = '';
     }
-    if (host.search('wikipedia') >= 0 || host.search('wikiwand') >= 0) {
+    if (host.search('wikipedia') >= 0) {
         const copyTex = function () {
             navigator.clipboard.writeText('$' + this.alt + '$');
             this.style.animation = 'aniclick .4s';
@@ -34,6 +34,24 @@
             eqs[i].addEventListener('animationend', clearAnimation);
             eqs[i].title = '点击即可复制公式';
         }
+    } else if (host.search('wikiwand') >= 0){
+        const copyTex = function () {
+            const tex = this.getElementsByTagName('math')[0].getAttribute("alttext");
+            navigator.clipboard.writeText('$' + tex + '$');
+            this.style.animation = 'aniclick .4s';
+        }
+        const check_equations = (mutationList, observer) => {
+            const eqs = document.querySelectorAll('.mwe-math-element');
+            for (let i = 0; i < eqs.length; i++) {
+                eqs[i].onclick = copyTex;
+                eqs[i].addEventListener('animationend', clearAnimation);
+                eqs[i].title = '点击即可复制公式';
+            }
+        }
+        const targetNode = document.getElementsByTagName('article')[0];
+        const config = { attributes: false, childList: true, subtree: true };
+        const observer = new MutationObserver(check_equations);
+        observer.observe(targetNode, config);
     } else if (host.search('zhihu') >= 0) {
         const copyTex = function () {
             navigator.clipboard.writeText('$' + this.getAttribute('data-tex') + '$');
