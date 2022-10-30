@@ -19,7 +19,9 @@
 
 如果你有其他常用的网站欢迎反馈
 
-## github公式渲染
+## github公式渲染（已过期）
+
+> github 已经支持 mathjax，这个脚本没用了
 
 [GreasyFork发布页](https://greasyfork.org/zh-CN/scripts/397797)
 
