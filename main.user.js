@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         一键复制公式
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      0.7
 // @description  Click to copy equation in Wikipedia and Zhihu
 // @author       flaribbit
 // @match        http://*.wikipedia.org/*
